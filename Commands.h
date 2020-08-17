@@ -19,6 +19,7 @@ struct Inode {
 
 class Commands {
 public:
+    static void FM(Inode inodeArray[], bool disk[]);
     static void NF(std::string fileName, std::string blockCount, Inode inodeArray[], bool disk[]);
     static void MF(std::string fileName, std::string blockCount, Inode inodeArray[], bool disk[]);
     static void DF(std::string fileName, Inode inodeArray[], bool disk[]);

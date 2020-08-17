@@ -1,0 +1,26 @@
+NF test101.txt 8
+NF test201.doc 5
+NF test301.xls 10
+NF test401.tif 5
+PR
+DB test301.xls 3
+PR
+MF test401.tif 4
+MF test201.doc 5
+NF test501.txt 10
+PR
+DF test101.txt
+DB test201.doc 1
+NF test601.txt 1
+PR
+DB test301.xls 2
+NF test701.txt 3
+NF test801.txt 3
+NF test901.txt 6
+PR
+MF test801.txt 4
+DF test201.doc
+PR
+FM
+NF test999.txt 9
+PR

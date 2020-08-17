@@ -1,5 +1,17 @@
 #include "Commands.h"
 
+static void FM(Inode *inodeArray, bool *disk)
+{
+    for (Inode nodes : inodeArray)
+    {
+        delete nodes;
+        nodes = nullptr;
+    }
+
+    for (bool val : disk)
+        val = 0;
+}
+
 void Commands::NF(std::string fileName, std::string blockCount, Inode *inodeArray, bool *disk) {
     //Create a new inode in the inodeArray
 }
