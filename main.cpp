@@ -22,18 +22,21 @@
 #include <string> //Needed for string.
 #include <iostream> //Needed for cin/cout/getline.
 #include <vector> //Needed for vector for function return.
+#include <fstream> //Needed to read from file.
 #include "Commands.h" //Commands the OS uses.
 #include <ctime> //Needed for time for inode.
 
+const string FILENAME = "commands.txt";
+
 //Function Prototypes
-std::vector<std::string> parseInput(const std::string& input);  //Parses commands given to the program.
-                                                                //Returns vector because its not easy
-                                                                //to return arrays.
+std::vector<std::string> parseInput(const std::string& filename);   //Parses commands given to the program.
+                                                                    //Returns vector because its not easy
+                                                                    //to return arrays.
 int main() {
     std::cout << "Welcome to a simulation of an Inode File System! Use \"quit\" to leave the program!\nWritten by:\n";
     std::cout << "Logan Petersen\n";
-    std::cout << "Jayden Fullerton\n";
     //TODO: ADD YOUR NAME HERE.
+    //cout << "NAME"\n;
     //cout << "NAME"\n;
 
     //Local Variables
@@ -43,8 +46,7 @@ int main() {
     bool disk[1000] = {false}; //Using bool because we can implement a print approach in Commands::PR.
 
     do {
-        std::getline(std::cin, consoleInput);
-        givenCommand = parseInput(consoleInput);
+        givenCommand = parseInput(FILENAME);
 
         //Switch statement doesn't work effectively on strings unless you convert each string
         //to int, so therefore if is being used. :(
@@ -70,13 +72,14 @@ int main() {
     return 0;
 }
 
-std::vector<std::string> parseInput(const std::string& input) {    //Parses commands given to the program.
+std::vector<std::string> parseInput(const std::string& filename) {    //Parses commands given to the program.
                                                             //Returns vector because its not easy
                                                             //to return arrays.
-    //Local Variables
-    std::vector<std::string> returnVector;
-    std::string temporaryStorage;
+    std::vector<std::string> commands;
+    
+    ifstream file(filename);
 
+<<<<<<< Updated upstream
     //Parse the string into components.
     for(char i : input) {
         if(i != ' ') {
@@ -89,3 +92,11 @@ std::vector<std::string> parseInput(const std::string& input) {    //Parses comm
     }
     return returnVector;
 }
+=======
+    string line = "";
+    while (std::getline(line, file))
+        commands.push_back(line);
+
+    return commands;
+}
+>>>>>>> Stashed changes
