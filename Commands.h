@@ -17,14 +17,20 @@ struct Inode {
     bool* directBlocks[10];
 };
 
+//Directory Structure
+struct directoryFile {
+    std::string filename;
+    int Inode;
+};
+
 class Commands {
 public:
-    static void FM(Inode inodeArray[], bool disk[]);
-    static void NF(std::string fileName, std::string blockCount, Inode inodeArray[], bool disk[]);
-    static void MF(std::string fileName, std::string blockCount, Inode inodeArray[], bool disk[]);
-    static void DF(std::string fileName, Inode inodeArray[], bool disk[]);
-    static void DB(std::string fileName, std::string numBlocks, Inode inodeArray[], bool disk[]);
-    static std::string PR(Inode inodeArray[], bool disk[]);
+    static void FM(directoryFile directory, Inode inodeArray[], bool disk[]);
+    static void NF(std::string fileName, std::string blockCount, directoryFile directory, Inode inodeArray[], bool disk[]);
+    static void MF(std::string fileName, std::string blockCount, directoryFile directory, Inode inodeArray[], bool disk[]);
+    static void DF(std::string fileName, directoryFile directory, Inode inodeArray[], bool disk[]);
+    static void DB(std::string fileName, std::string numBlocks, directoryFile directory, Inode inodeArray[], bool disk[]);
+    static std::string PR(directoryFile directory, Inode inodeArray[], bool disk[]);
 
 };
 

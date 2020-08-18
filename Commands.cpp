@@ -1,6 +1,6 @@
 #include "Commands.h"
 
-static void FM(Inode *inodeArray, bool *disk)
+static void Commands::FM(directoryFile directory, Inode *inodeArray, bool *disk)
 {
     for (Inode nodes : inodeArray)
     {
@@ -12,22 +12,22 @@ static void FM(Inode *inodeArray, bool *disk)
         val = 0;
 }
 
-void Commands::NF(std::string fileName, std::string blockCount, Inode *inodeArray, bool *disk) {
-    //Create a new inode in the inodeArray
+void Commands::NF(std::string fileName, std::string blockCount, directoryFile directory, Inode *inodeArray, bool *disk) {
+    //Create a new file
+    while()
 }
 
-void Commands::MF(std::string fileName, std::string blockCount, Inode *inodeArray, bool *disk) {
-
+void Commands::MF(std::string fileName, std::string blockCount, directoryFile directory, Inode *inodeArray, bool *disk) {
 }
 
-void Commands::DF(std::string fileName, Inode *inodeArray, bool *disk) {
-
-}
-
-void Commands::DB(std::string fileName, std::string numBlocks, Inode *inodeArray, bool *disk) {
+void Commands::DF(std::string fileName, directoryFile directory, Inode *inodeArray, bool *disk) {
 
 }
 
-std::string Commands::PR(Inode *inodeArray, bool *disk) {
+void Commands::DB(std::string fileName, std::string numBlocks, directoryFile directory, Inode *inodeArray, bool *disk) {
+
+}
+
+std::string Commands::PR(directoryFile directory, Inode *inodeArray, bool *disk) {
     return std::string();
 }

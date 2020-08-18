@@ -43,6 +43,7 @@ int main() {
     std::string consoleInput;
     std::vector<std::string> givenCommand;
     Inode inodeArray[1000];  //Can't have more than 1000 files with a disk the  side of 1000.
+    directoryFile Directory[1000] //The file name and corresponding Inode storage.
     bool disk[1000] = {false}; //Using bool because we can implement a print approach in Commands::PR.
 
     do {
@@ -72,9 +73,9 @@ int main() {
     return 0;
 }
 
-std::vector<std::string> parseInput(const std::string& filename) {    //Parses commands given to the program.
-                                                            //Returns vector because its not easy
-                                                            //to return arrays.
+std::vector<std::string> parseInput(const std::string& filename) {  //Parses commands given to the program.
+                                                                    //Returns vector because its not easy
+                                                                    //to return arrays.
     std::vector<std::string> commands;
     
     ifstream file(filename);
