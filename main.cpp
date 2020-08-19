@@ -5,7 +5,7 @@
  * Use only direct blocks (no indirect blocks)
  * uid = CSS430 gid = CSS430
  *
- * Only commands used are:
+ * Commands used are:
  * Create new file: NF filename numblocks
  *      Creates file of 4 blocks.
  * Add to file: MF filename numblocks
@@ -24,9 +24,8 @@
 #include <vector> //Needed for vector for function return.
 #include <fstream> //Needed to read from file.
 #include "Commands.h" //Commands the OS uses.
-#include <ctime> //Needed for time for inode.
 
-const string FILENAME = "commands.txt";
+const std::string FILENAME = "commands.txt";
 
 //Function Prototypes
 std::vector<std::string> parseInput(const std::string& filename);   //Parses commands given to the program.
@@ -43,7 +42,7 @@ int main() {
     std::string consoleInput;
     std::vector<std::string> givenCommand;
     Inode inodeArray[1000];  //Can't have more than 1000 files with a disk the  side of 1000.
-    directoryFile Directory[1000] //The file name and corresponding Inode storage.
+    directoryFile directory[1000]; //The file name and corresponding Inode storage.
     bool disk[1000] = {false}; //Using bool because we can implement a print approach in Commands::PR.
 
     do {
@@ -51,8 +50,11 @@ int main() {
 
         //Switch statement doesn't work effectively on strings unless you convert each string
         //to int, so therefore if is being used. :(
+        if (givenCommand.at(1) == "FM") {
+            Commands::FM(directory, inodeArray, disk);
+        }
         if(givenCommand.at(1) == "NF") {
-            Commands::NF(givenCommand[1], givenCommand[2], inodeArray, disk);
+            Commands::NF(givenCommand[1], givenCommand[2], directory, inodeArray, disk);
         }
         else if(givenCommand.at(1) == "MF") {
             Commands::MF(givenCommand[1], givenCommand[2], disk);
@@ -78,8 +80,9 @@ std::vector<std::string> parseInput(const std::string& filename) {  //Parses com
                                                                     //to return arrays.
     std::vector<std::string> commands;
     
-    ifstream file(filename);
+    std::ifstream file(filename);
 
+//TODO: make sure this actually works in the end?
 <<<<<<< Updated upstream
     //Parse the string into components.
     for(char i : input) {
