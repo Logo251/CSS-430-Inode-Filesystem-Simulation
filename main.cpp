@@ -78,12 +78,18 @@ int main() {
 std::vector<std::string> parseInput(const std::string& filename) {  //Parses commands given to the program.
                                                                     //Returns vector because its not easy
                                                                     //to return arrays.
+    //Local Variables
     std::vector<std::string> commands;
-    
     std::ifstream file(filename);
 
+    std::string line = "";
+    while (std::getline(line, file))
+        commands.push_back(line);
+
+    return commands;
+
 //TODO: make sure this actually works in the end?
-<<<<<<< Updated upstream
+/* old code
     //Parse the string into components.
     for(char i : input) {
         if(i != ' ') {
@@ -96,11 +102,5 @@ std::vector<std::string> parseInput(const std::string& filename) {  //Parses com
     }
     return returnVector;
 }
-=======
-    string line = "";
-    while (std::getline(line, file))
-        commands.push_back(line);
-
-    return commands;
+=======*/
 }
->>>>>>> Stashed changes
