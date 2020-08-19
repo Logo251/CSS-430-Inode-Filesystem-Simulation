@@ -57,16 +57,16 @@ int main() {
             Commands::NF(givenCommand[1], givenCommand[2], directory, inodeArray, disk);
         }
         else if(givenCommand.at(1) == "MF") {
-            Commands::MF(givenCommand[1], givenCommand[2], disk);
+            Commands::MF(givenCommand[1], givenCommand[2], directory, inodeArray, disk);
         }
         else if(givenCommand.at(1) == "DF") {
-            Commands::DF(givenCommand[1], disk);
+            Commands::DF(givenCommand[1], directory, inodeArray, disk);
         }
         else if(givenCommand.at(1) == "DB") {
-            Commands::DB(givenCommand[1], givenCommand[2], disk);
+            Commands::DB(givenCommand[1], givenCommand[2], directory, inodeArray, disk);
         }
         else if(givenCommand.at(1) == "PR") {
-            std::cout << Commands::PR(disk);
+            std::cout << Commands::PR(directory, inodeArray, disk);
         }
         else if (givenCommand.at(1) != "quit") {
             std::cout << "Invalid Command.\n";
