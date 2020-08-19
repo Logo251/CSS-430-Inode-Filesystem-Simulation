@@ -44,11 +44,9 @@ int main() {
     Inode inodeArray[1000];  //Can't have more than 1000 files with a disk the  side of 1000.
     directoryFile directory[1000]; //The file name and corresponding Inode storage.
     bool disk[1000] = {false}; //Using bool because we can implement a print approach in Commands::PR.
-    std::ifstream file(FILENAME);
-
 
     do {
-        givenCommand = parseInput(file);
+        givenCommand = parseInput(FILENAME);
 
         //Switch statement doesn't work effectively on strings unless you convert each string
         //to int, so therefore if is being used. :(
@@ -77,18 +75,24 @@ int main() {
     return 0;
 }
 
-std::vector<std::string> parseInput(std::ifstream& file) {  //Parses commands given to the program.
+std::vector<std::string> parseInput(const std::string& filename) {  //Parses commands given to the program.
                                                                     //Returns vector because its not easy
                                                                     //to return arrays.
     //Local Variables
-    std::vector<std::string> returnVector;
-    std::string line;
-    std::string temporaryStorage;
+    std::vector<std::string> commands;
+    std::ifstream file(filename);
 
-    std::getline(file, line);
+    std::string line = "";
+    while (std::getline(line, file))
+        commands.push_back(line);
 
-    for (char i : line) {
-        if (i != ' ') {
+    return commands;
+
+//TODO: make sure this actually works in the end?
+/* old code
+    //Parse the string into components.
+    for(char i : input) {
+        if(i != ' ') {
             temporaryStorage.push_back(i);
         }
         else {
@@ -97,4 +101,6 @@ std::vector<std::string> parseInput(std::ifstream& file) {  //Parses commands gi
         }
     }
     return returnVector;
+}
+=======*/
 }
