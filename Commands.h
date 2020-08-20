@@ -34,7 +34,8 @@ public:
     static void DF(std::string fileName, directoryFile* directory, Inode inodeArray[], bool disk[]);
     static void DB(std::string fileName, std::string numBlocks, directoryFile* directory, Inode inodeArray[], bool disk[]);
     static std::string PR(directoryFile* directory, Inode inodeArray[], bool disk[]);
-
+private:
+    static std::string FormattedCurrentTime();
 };
 
 

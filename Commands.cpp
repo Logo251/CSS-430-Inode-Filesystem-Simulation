@@ -16,14 +16,7 @@ void Commands::NF(std::string fileName, std::string blockCount, directoryFile* d
     //Set up the new Inode.
     newInode.blockCount = blockNumber;
     newInode.size = 0; //TODO: set this to something.
-
-    struct tm timeInfo;
-    time_t t = time(NULL);
-    localtime_s(&timeInfo, &t);
-    newInode.ctime = std::to_string(timeInfo.tm_mday) + "/"
-        + std::to_string(timeInfo.tm_mon) + "/"
-        + std::to_string((1900 + timeInfo.tm_year)) + " "
-        + std::to_string((1 + timeInfo.tm_hour)) + "/" + std::to_string(timeInfo.tm_sec);
+    newInode.ctime = FormattedCurrentTime();
 
     int numBlocksOnDisk = 0;
     //Get the Inode some disk.
@@ -35,11 +28,8 @@ void Commands::NF(std::string fileName, std::string blockCount, directoryFile* d
         }
     }
 
-
     //Iterate through Inodearray till be find an open slot.
     int iterator = 0;
-
-    
 
 }
 
@@ -56,4 +46,16 @@ void Commands::DB(std::string fileName, std::string numBlocks, directoryFile* di
 
 std::string Commands::PR(directoryFile* directory, Inode *inodeArray, bool *disk) {
     return std::string();
+}
+
+std::string Commands::FormattedCurrentTime() {
+    std::string returnString;
+    struct tm timeInfo;
+    time_t t = time(NULL);
+    localtime_s(&timeInfo, &t);
+    returnString = std::to_string(timeInfo.tm_mday) + "/"
+        + std::to_string(timeInfo.tm_mon) + "/"
+        + std::to_string((1900 + timeInfo.tm_year)) + " "
+        + std::to_string((1 + timeInfo.tm_hour)) + "/" + std::to_string(timeInfo.tm_sec);
+    return returnString;
 }
