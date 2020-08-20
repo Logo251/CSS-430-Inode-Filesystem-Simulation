@@ -11,19 +11,27 @@ void Commands::NF(std::string fileName, std::string blockCount, directoryFile* d
     //Local Variables
     Inode newInode;
     int blockNumber = std::stoi(blockCount);
-    
+    if (blockNumber > 10) blockNumber = 10;
 
     //Set up the new Inode.
     newInode.blockCount = blockNumber;
     newInode.size = 0; //TODO: set this to something.
-    //TODO: time still.
+
+    struct tm timeInfo;
+    time_t t = time(NULL);
+    localtime_s(&timeInfo, &t);
+    newInode.ctime = std::to_string(timeInfo.tm_mday) + "/"
+        + std::to_string(timeInfo.tm_mon) + "/"
+        + std::to_string((1900 + timeInfo.tm_year)) + " "
+        + std::to_string((1 + timeInfo.tm_hour)) + "/" + std::to_string(timeInfo.tm_sec);
+
+    int numBlocksOnDisk = 0;
     //Get the Inode some disk.
-    for (int i = 0; i < blockNumber; i++) {
-        for (bool j : disk) { //Inefficient because we restart at 0 every bit we look for, but unimportant.
-            if (j == false) {
-                j = true;
-                newInode.directBlocks[i] = &j;
-            }
+    for (int i = 0; i < 1000 && numBlocksOnDisk <= std::stoi(blockCount); i++) {
+        if (disk[i] == 0)
+        {
+            disk[i] = 1;
+            numBlocksOnDisk++;
         }
     }
 

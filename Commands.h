@@ -4,6 +4,13 @@
 #include <string>
 #include <ctime> //Needed for time for inode.
 
+
+//Directory Structure
+struct directoryFile {
+    std::string filename;
+    int inodeNum;
+};
+
 //TODO: here it make it work, is there a better way?
 //Inode structure
 struct Inode {
@@ -17,12 +24,6 @@ struct Inode {
     int size = 0;
     int blockCount = 0;
     bool* directBlocks[10];
-};
-
-//Directory Structure
-struct directoryFile {
-    std::string filename;
-    int Inode;
 };
 
 class Commands {

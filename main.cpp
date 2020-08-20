@@ -42,7 +42,7 @@ int main() {
     std::string consoleInput;
     std::vector<std::string> givenCommand;
     Inode inodeArray[1000];  //Can't have more than 1000 files with a disk the  side of 1000.
-    directoryFile directory[1000]; //The file name and corresponding Inode storage.
+    directoryFile directory[25]; //The file name and corresponding Inode storage.
     bool disk[1000] = {false}; //Using bool because we can implement a print approach in Commands::PR.
     std::ifstream file(FILENAME);
 
@@ -51,25 +51,25 @@ int main() {
 
         //Switch statement doesn't work effectively on strings unless you convert each string
         //to int, so therefore if is being used. :(
-        if (givenCommand.at(1) == "FM") {
+        if (givenCommand.at(0) == "FM") {
             Commands::FM(directory, inodeArray, disk);
         }
-        if(givenCommand.at(1) == "NF") {
+        if(givenCommand.at(0) == "NF") {
             Commands::NF(givenCommand[1], givenCommand[2], directory, inodeArray, disk);
         }
-        else if(givenCommand.at(1) == "MF") {
+        else if(givenCommand.at(0) == "MF") {
             Commands::MF(givenCommand[1], givenCommand[2], directory, inodeArray, disk);
         }
-        else if(givenCommand.at(1) == "DF") {
+        else if(givenCommand.at(0) == "DF") {
             Commands::DF(givenCommand[1], directory, inodeArray, disk);
         }
-        else if(givenCommand.at(1) == "DB") {
+        else if(givenCommand.at(0) == "DB") {
             Commands::DB(givenCommand[1], givenCommand[2], directory, inodeArray, disk);
         }
-        else if(givenCommand.at(1) == "PR") {
+        else if(givenCommand.at(0) == "PR") {
             std::cout << Commands::PR(directory, inodeArray, disk);
         }
-        else if (givenCommand.at(1) != "quit") {
+        else if (givenCommand.at(10) != "quit") {
             std::cout << "Invalid Command.\n";
         }
     } while(consoleInput != "quit");
