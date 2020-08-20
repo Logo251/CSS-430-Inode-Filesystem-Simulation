@@ -1,4 +1,4 @@
-/*
+/**
  * Givens:
  * A disk contains 1000 512K blocks (0-999)
  * Permissions and file type(first byte) should be -rwxr--r--
@@ -25,10 +25,10 @@
 #include <fstream> //Needed to read from file.
 #include "Commands.h" //Commands the OS uses.
 
-const std::string FILENAME = "commands.txt";
+const std::string FILENAME = "command.txt";
 
 //Function Prototypes
-std::vector<std::string> parseInput(std::ifstream& file);           //Parses commands given to the program.
+std::vector<std::string> parseInput(std::string filename);           //Parses commands given to the program.
                                                                     //Returns vector because its not easy
                                                                     //to return arrays.
 int main() {
@@ -44,41 +44,42 @@ int main() {
     Inode inodeArray[1000];  //Can't have more than 1000 files with a disk the  side of 1000.
     directoryFile directory[25]; //The file name and corresponding Inode storage.
     bool disk[1000] = {false}; //Using bool because we can implement a print approach in Commands::PR.
-    std::ifstream file(FILENAME);
 
     do {
-        givenCommand = parseInput(file);
+        givenCommand = parseInput(FILENAME);
 
         //Switch statement doesn't work effectively on strings unless you convert each string
         //to int, so therefore if is being used. :(
-        if (givenCommand.at(0) == "FM") {
+        if (givenCommand[0] == "FM") {
             Commands::FM(directory, inodeArray, disk);
         }
-        if(givenCommand.at(0) == "NF") {
+        if(givenCommand[0] == "NF") {
             Commands::NF(givenCommand[1], givenCommand[2], directory, inodeArray, disk);
         }
-        else if(givenCommand.at(0) == "MF") {
+        else if(givenCommand[0] == "MF") {
             Commands::MF(givenCommand[1], givenCommand[2], directory, inodeArray, disk);
         }
-        else if(givenCommand.at(0) == "DF") {
+        else if(givenCommand[0] == "DF") {
             Commands::DF(givenCommand[1], directory, inodeArray, disk);
         }
-        else if(givenCommand.at(0) == "DB") {
+        else if(givenCommand[0] == "DB") {
             Commands::DB(givenCommand[1], givenCommand[2], directory, inodeArray, disk);
         }
-        else if(givenCommand.at(0) == "PR") {
+        else if(givenCommand[0] == "PR") {
             std::cout << Commands::PR(directory, inodeArray, disk);
         }
-        else if (givenCommand.at(10) != "quit") {
+        else if (givenCommand[0] != "quit") {
             std::cout << "Invalid Command.\n";
         }
     } while(consoleInput != "quit");
     return 0;
 }
 
-std::vector<std::string> parseInput(std::ifstream& file) {  //Parses commands given to the program.
+std::vector<std::string> parseInput(std::string filename) {  //Parses commands given to the program.
                                                             //Returns vector because its not easy
                                                             //to return arrays.
+    std::ifstream file(filename);
+
     //Local Variables
     std::vector<std::string> returnVector;
     std::string line;
@@ -95,5 +96,8 @@ std::vector<std::string> parseInput(std::ifstream& file) {  //Parses commands gi
             temporaryStorage.clear();
         }
     }
+
+    returnVector.push_back(temporaryStorage);
+
     return returnVector;
 }
