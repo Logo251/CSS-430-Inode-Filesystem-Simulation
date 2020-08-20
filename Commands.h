@@ -18,9 +18,9 @@ struct Inode {
     const char mode[10] = {'-', 'r', 'w', 'x', 'r', '-', '-', 'r', '-', '-'}; //Default as given by specifications.
     const std::string uid = "CSS430";                                         //Default as given by specifications.
     const std::string guid = "CSS430";                                        //Default as given by specifications.
-    std::string atime;
-    std::string ctime;
-    std::string mtime; 
+    std::string atime = Commands::FormattedCurrentTime();
+    const std::string ctime = Commands::FormattedCurrentTime();
+    std::string mtime = Commands::FormattedCurrentTime();
     int size = 0;
     int blockCount = 0;
     bool* directBlocks[10];
@@ -34,7 +34,6 @@ public:
     static void DF(std::string fileName, directoryFile* directory, Inode inodeArray[], bool disk[]);
     static void DB(std::string fileName, std::string numBlocks, directoryFile* directory, Inode inodeArray[], bool disk[]);
     static std::string PR(directoryFile* directory, Inode inodeArray[], bool disk[]);
-private:
     static std::string FormattedCurrentTime();
 };
 

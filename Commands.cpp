@@ -16,7 +16,6 @@ void Commands::NF(std::string fileName, std::string blockCount, directoryFile* d
     //Set up the new Inode.
     newInode.blockCount = blockNumber;
     newInode.size = 0; //TODO: set this to something.
-    newInode.ctime = FormattedCurrentTime();
 
     int numBlocksOnDisk = 0;
     //Get the Inode some disk.
