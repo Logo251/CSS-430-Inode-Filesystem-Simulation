@@ -41,7 +41,7 @@ int main() {
     //Local Variables
     std::string consoleInput;
     std::vector<std::string> givenCommand;
-    Inode inodeArray[1000];  //Can't have more than 1000 files with a disk the  side of 1000.
+    Inode inodeArray[25];  //Can't have more than 1000 files with a disk the  side of 1000.
     directoryFile directory[25]; //The file name and corresponding Inode storage.
     bool disk[1000] = {false}; //Using bool because we can implement a print approach in Commands::PR.
 
