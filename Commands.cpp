@@ -86,6 +86,20 @@ void Commands::MF(std::string fileName, std::string blockCount, directoryFile* d
 
     //Add more to inode
     //TODO: reuse code from NF.
+    int numBlocksOnDisk = 0;
+    int blockNumber = std::stoi(blockCount);
+    if (blockNumber > 10) blockNumber = 10;
+    //Get the Inode some disk.
+    for (int i = 0; i < 1000; i++) {
+        if (disk[i] == 0)
+        {
+            disk[i] = 1;
+            inodeArray[inodeNumber].directBlocks[numBlocksOnDisk] = &disk[i];
+            numBlocksOnDisk++;
+        }
+        if (numBlocksOnDisk == blockNumber)
+            break;
+    }
 }
 
 void Commands::DF(std::string fileName, directoryFile* directory, Inode* inodeArray, bool* disk) {
