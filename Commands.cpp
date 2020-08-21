@@ -142,8 +142,8 @@ std::string Commands::FormattedCurrentTime() {
     time_t t = time(NULL);
     localtime_s(&timeInfo, &t);
     returnString = std::to_string(timeInfo.tm_mday) + "/"
-        + std::to_string(timeInfo.tm_mon) + "/"
+        + std::to_string(1 + timeInfo.tm_mon) + "/"
         + std::to_string((1900 + timeInfo.tm_year)) + " "
-        + std::to_string((1 + timeInfo.tm_hour)) + "/" + std::to_string(timeInfo.tm_sec);
+        + std::to_string((1 + timeInfo.tm_hour)) + ":" + std::to_string(timeInfo.tm_sec);
     return returnString;
 }
