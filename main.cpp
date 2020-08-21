@@ -28,7 +28,7 @@
 const std::string FILENAME = "command.txt";
 
 //Function Prototypes
-std::vector<std::string> parseInput(std::string filename);           //Parses commands given to the program.
+std::vector<std::string> parseInput(std::string filename, int lineCount);           //Parses commands given to the program.
                                                                     //Returns vector because its not easy
                                                                     //to return arrays.
 int main() {
@@ -47,9 +47,11 @@ int main() {
     Inode* inodeArray = new Inode[25];  //Can't have more than 1000 files with a disk the  side of 1000.
     directoryFile* directory = new directoryFile[25]{ empty }; //The file name and corresponding Inode storage.
     bool* disk = new bool[1000]{ false }; //Using bool because we can implement a print approach in Commands::PR.
+    int lineCount = 1;
 
     do {
-        givenCommand = parseInput(FILENAME);
+        givenCommand = parseInput(FILENAME, lineCount);
+        lineCount++;
 
         //Switch statement doesn't work effectively on strings unless you convert each string
         //to int, so therefore if is being used. :(
@@ -78,9 +80,9 @@ int main() {
     return 0;
 }
 
-std::vector<std::string> parseInput(std::string filename) {  //Parses commands given to the program.
-                                                            //Returns vector because its not easy
-                                                            //to return arrays.
+std::vector<std::string> parseInput(std::string filename, int lineCount) {  //Parses commands given to the program.
+                                                                            //Returns vector because its not easy
+                                                                            //to return arrays.
     std::ifstream file(filename);
 
     //Local Variables
@@ -88,7 +90,8 @@ std::vector<std::string> parseInput(std::string filename) {  //Parses commands g
     std::string line;
     std::string temporaryStorage;
 
-    std::getline(file, line);
+    for (int i = 0; i < lineCount; i++)
+        std::getline(file, line);
 
     for (char i : line) {
         if (i != ' ') {
