@@ -1,5 +1,4 @@
 #include "Commands.h"
-#include "Commands.h"
 
 Inode Inode::operator=(const Inode& inode)
 {
@@ -113,7 +112,7 @@ void Commands::DF(std::string fileName, directoryFile* directory, Inode* inodeAr
         if (directory[i].filename == fileName) {
           for(int j = 0; j <= inodeArray[i].blockCount; j++){
             //inode direct block points to index on disk, which is set back to 0
-            *inodeArray[i].directBlocks[j] = 0;
+            inodeArray[i].directBlocks[j] = 0;
           }
           //bitmap updated, directory entry updated, but still need to update inode array entry to null
           directory[i].inodeNum = 0;
@@ -144,22 +143,31 @@ void Commands::DB(std::string fileName, std::string numBlocks, directoryFile* di
 
 void Commands::PR(directoryFile* directory, Inode *inodeArray, bool *disk) {
     //Local Variables
-    //std::cout << "Filename\tInode #\tMode\tUser ID\tGroup ID\tCreate Time\t\tAccess Time\t\tModify Time\t\tSize\tBlock Count\n\n";
+    std::cout << std::setw(15) << "filename";
+    std::cout << std::setw(12) << "mode";
+    std::cout << std::setw(10) << "inode #";
+    std::cout << std::setw(8) << "uid";
+    std::cout << std::setw(8) << "guid";
+    std::cout << std::setw(16) << "ctime";
+    std::cout << std::setw(16) << "atime";
+    std::cout << std::setw(16) << "mtime";
+    std::cout << std::setw(10) << "size";
+    std::cout << std::setw(13) << "block count" << std::endl;
     for (int i = 0; i < 25; i++) {
         if (!directory[i].filename.empty()) {
-            std::cout << directory[i].filename + '\t';
+            std::cout << std::setw(15) << directory[i].filename;
+            std::cout << "  ";
             for (char i : inodeArray[directory[i].inodeNum].mode) {
                 std::cout << i;
             }
-            std::cout << std::endl;
-            std::cout << directory[i].inodeNum << std::endl;
-            std::cout << inodeArray[directory[i].inodeNum].uid << std::endl;
-            std::cout << inodeArray[directory[i].inodeNum].guid << std::endl;
-            std::cout << inodeArray[directory[i].inodeNum].ctime << std::endl;
-            std::cout << inodeArray[directory[i].inodeNum].atime << std::endl;
-            std::cout << inodeArray[directory[i].inodeNum].mtime << std::endl;
-            std::cout << inodeArray[directory[i].inodeNum].size << std::endl;
-            std::cout << inodeArray[directory[i].inodeNum].blockCount << std::endl;
+            std::cout << std::setw(10) << directory[i].inodeNum;
+            std::cout << std::setw(8) << inodeArray[directory[i].inodeNum].uid;
+            std::cout << std::setw(8) << inodeArray[directory[i].inodeNum].guid;
+            std::cout << std::setw(16) << inodeArray[directory[i].inodeNum].ctime;
+            std::cout << std::setw(16) << inodeArray[directory[i].inodeNum].atime;
+            std::cout << std::setw(16) << inodeArray[directory[i].inodeNum].mtime;
+            std::cout << std::setw(10) << inodeArray[directory[i].inodeNum].size ;
+            std::cout << std::setw(13) << inodeArray[directory[i].inodeNum].blockCount << std::endl;
         }
     }
     std::cout << "bitmap array:\n";
