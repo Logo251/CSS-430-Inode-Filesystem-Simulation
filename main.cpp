@@ -32,7 +32,7 @@ std::vector<std::string> parseInput(std::string filename, int lineCount);       
                                                                     //Returns vector because its not easy
                                                                     //to return arrays.
 int main() {
-    std::cout << "Welcome to a simulation of an Inode File System! Use \"quit\" to leave the program!\nWritten by:\n";
+    std::cout << "Written by:\n";
     std::cout << "Logan Petersen\n";
     std::cout << "Jayden Fullerton\n";
     //TODO: ADD YOUR NAME HERE.
