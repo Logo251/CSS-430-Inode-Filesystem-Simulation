@@ -124,7 +124,22 @@ void Commands::DF(std::string fileName, directoryFile* directory, Inode* inodeAr
 }
 
 void Commands::DB(std::string fileName, std::string numBlocks, directoryFile* directory, Inode* inodeArray, bool* disk) {
-
+  int blockNumber = std::stoi(numBlocks);
+  for (int i = 0; i < 25; i++) {
+    if (directory[i].filename == fileName) {
+      for(int j = blockNumber - 1; j >= inodeArray[i].blockCount - blockNumber; j--){
+        //inode direct block points to index on disk, which is set back to 0
+        *inodeArray[i].directBlocks[j] = 0;
+        //decrement block count and size
+        inodeArray[i].blockCount--;
+        inodeArray[i].size -= 512000;
+      }
+      //update other inode fields
+      inodeArray[i].atime = FormattedCurrentTime();
+      inodeArray[i].mtime = FormattedCurrentTime();
+      return;
+    }
+  }
 }
 
 void Commands::PR(directoryFile* directory, Inode *inodeArray, bool *disk) {
