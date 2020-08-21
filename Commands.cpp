@@ -93,7 +93,36 @@ void Commands::DB(std::string fileName, std::string numBlocks, directoryFile* di
 }
 
 std::string Commands::PR(directoryFile* directory, Inode *inodeArray, bool *disk) {
-    return std::string();
+    //Local Variables
+    std::string returnString;
+    returnString += "Filename\tInode #\tMode\tUser ID\tGroup ID\tCreate Time\t\tAccess Time\t\tModify Time\t\tSize\tBlock Count\n\n";
+    for (int i = 0; i < 25; i++) {
+        if (directory[i].inodeNum != 0) {
+            returnString += directory[i].filename + "\t";
+            returnString += directory[i].inodeNum + "\t";
+            returnString += inodeArray[directory[i].inodeNum].uid + "\t";
+            returnString += inodeArray[directory[i].inodeNum].guid + "\t";
+            returnString += inodeArray[directory[i].inodeNum].ctime + "\t";
+            returnString += inodeArray[directory[i].inodeNum].atime + "\t";
+            returnString += inodeArray[directory[i].inodeNum].mtime + "\t";
+            returnString += inodeArray[directory[i].inodeNum].size + "\t";
+            returnString += inodeArray[directory[i].inodeNum].blockCount + "\t";
+            returnString += '\n';
+        }
+    }
+    returnString += "bitmap array:\n";
+    for (int i = 0; i < 1000; i++) {
+        if (i % 100 == 0) {
+            returnString += '\n';
+        }
+        if (disk[i] == true) {
+            returnString += '1';
+        }
+        else if (disk[i] == false) {
+            returnString += '0';
+        }
+    }
+    return returnString;
 }
 
 std::string Commands::FormattedCurrentTime() {
