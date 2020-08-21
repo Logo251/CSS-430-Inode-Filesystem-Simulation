@@ -45,13 +45,15 @@ void Commands::NF(std::string fileName, std::string blockCount, directoryFile* d
 
     int numBlocksOnDisk = 0;
     //Get the Inode some disk.
-    for (int i = 0; i < 1000 && numBlocksOnDisk <= std::stoi(blockCount); i++) {
+    for (int i = 0; i < 1000; i++) {
         if (disk[i] == 0)
         {
-            newInode.directBlocks[numBlocksOnDisk] = &disk[i];
             disk[i] = 1;
+            newInode.directBlocks[numBlocksOnDisk] = &disk[i];
             numBlocksOnDisk++;
         }
+        if (numBlocksOnDisk == blockNumber)
+            break;
     }
 
     for (int i = 0; i < 25; i++)

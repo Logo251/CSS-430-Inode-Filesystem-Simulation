@@ -7,8 +7,8 @@
 
 //Directory Structure
 struct directoryFile {
-    std::string filename;
-    int inodeNum;
+    std::string filename = "";
+    int inodeNum = 0;
 };
 
 //TODO: here it make it work, is there a better way?
@@ -23,7 +23,7 @@ struct Inode {
     std::string mtime;
     int size = 0;
     int blockCount = 0;
-    bool* directBlocks[10];
+    bool* directBlocks[10]{ nullptr };
 
     Inode operator=(const Inode& inode);
 };
