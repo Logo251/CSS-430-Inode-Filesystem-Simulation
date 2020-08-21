@@ -80,15 +80,20 @@ void Commands::MF(std::string fileName, std::string blockCount, directoryFile* d
         }
     }
 
+    int blockNumber = std::stoi(blockCount);
+    int blocksLeft = 10 - inodeArray[inodeNumber].blockCount;
+    if (blockNumber > blocksLeft) blockNumber = blocksLeft;
+
     //Set accessed and modified date to be now.
     inodeArray[inodeNumber].atime = FormattedCurrentTime();
     inodeArray[inodeNumber].mtime = FormattedCurrentTime();
+    //increment block number and size
+    inodeArray[inodeNumber].blockCount = blockNumber;
+    inodeArray[inodeNumber].size += 512000 * blockNumber;
 
     //Add more to inode
     //TODO: reuse code from NF.
     int numBlocksOnDisk = 0;
-    int blockNumber = std::stoi(blockCount);
-    if (blockNumber > 10) blockNumber = 10;
     //Get the Inode some disk.
     for (int i = 0; i < 1000; i++) {
         if (disk[i] == 0)
