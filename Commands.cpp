@@ -38,7 +38,7 @@ void Commands::NF(std::string fileName, std::string blockCount, directoryFile* d
 
     //Set up the new Inode.
     newInode.blockCount = blockNumber;
-    newInode.size = 512000 * std::stoi(blockCount);
+    newInode.size = 524288 * std::stoi(blockCount);
     newInode.atime = FormattedCurrentTime();
     newInode.ctime = FormattedCurrentTime();
     newInode.mtime = FormattedCurrentTime();
