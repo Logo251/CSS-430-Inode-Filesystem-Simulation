@@ -53,8 +53,15 @@ void Commands::NF(std::string fileName, std::string blockCount, directoryFile* d
         }
     }
 
-    //Iterate through Inodearray till be find an open slot.
-    int iterator = 0;
+    for (int i = 0; i < 25; i++)
+    {
+        if (directory[i].filename == "" && directory[i].inodeNum == 0) // the spot is available
+        {
+            inodeArray[i] = newInode;
+            directory[i].filename = fileName;
+            directory[i].inodeNum = i;
+        }
+    }
 
 }
 
