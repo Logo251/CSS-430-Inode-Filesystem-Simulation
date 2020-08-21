@@ -88,7 +88,7 @@ void Commands::MF(std::string fileName, std::string blockCount, directoryFile* d
     inodeArray[inodeNumber].atime = FormattedCurrentTime();
     inodeArray[inodeNumber].mtime = FormattedCurrentTime();
     //increment block number and size
-    inodeArray[inodeNumber].blockCount = blockNumber;
+    inodeArray[inodeNumber].blockCount += blockNumber;
     inodeArray[inodeNumber].size += 512000 * blockNumber;
 
     //Add more to inode
