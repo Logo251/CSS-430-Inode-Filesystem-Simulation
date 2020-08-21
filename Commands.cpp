@@ -5,6 +5,7 @@ Inode Inode::operator=(const Inode& inode)
 {
     atime = inode.atime;
     mtime = inode.mtime;
+    ctime = inode.ctime;
     size = inode.size;
     blockCount = inode.blockCount;
     for (int i = 0; i < 10; i++) {
@@ -14,7 +15,7 @@ Inode Inode::operator=(const Inode& inode)
     return *this;
 }
 
-void Commands::FM(directoryFile* directory, Inode *inodeArray, bool *disk)
+void Commands::FM(directoryFile* directory, Inode* inodeArray, bool* disk)
 {
     delete[] directory;
     delete[] inodeArray;
@@ -29,7 +30,7 @@ void Commands::FM(directoryFile* directory, Inode *inodeArray, bool *disk)
     disk = new bool[1000]{ false };
 }
 
-void Commands::NF(std::string fileName, std::string blockCount, directoryFile* directory, Inode *inodeArray, bool *disk) {
+void Commands::NF(std::string fileName, std::string blockCount, directoryFile* directory, Inode* inodeArray, bool* disk) {
     //Local Variables
     Inode newInode;
     int blockNumber = std::stoi(blockCount);
@@ -65,10 +66,10 @@ void Commands::NF(std::string fileName, std::string blockCount, directoryFile* d
 
 }
 
-void Commands::MF(std::string fileName, std::string blockCount, directoryFile* directory, Inode *inodeArray, bool *disk) {
+void Commands::MF(std::string fileName, std::string blockCount, directoryFile* directory, Inode* inodeArray, bool* disk) {
     //Local Variables
     int inodeNumber;
-    
+
     //Find the Inode
     for (int i = 0; i < 25; i++) {
         if (directory[i].filename == fileName) {
@@ -79,12 +80,12 @@ void Commands::MF(std::string fileName, std::string blockCount, directoryFile* d
     //Set accessed and modified date to be now.
     inodeArray[inodeNumber].atime = FormattedCurrentTime();
     inodeArray[inodeNumber].mtime = FormattedCurrentTime();
-    
+
     //Add more to inode
     //TODO: reuse code from NF.
 }
 
-void Commands::DF(std::string fileName, directoryFile* directory, Inode *inodeArray, bool *disk) {
+void Commands::DF(std::string fileName, directoryFile* directory, Inode* inodeArray, bool* disk) {
     //Find the Inode
     for (int i = 0; i < 25; i++) {
         if (directory[i].filename == fileName) {
@@ -95,7 +96,7 @@ void Commands::DF(std::string fileName, directoryFile* directory, Inode *inodeAr
     }
 }
 
-void Commands::DB(std::string fileName, std::string numBlocks, directoryFile* directory, Inode *inodeArray, bool *disk) {
+void Commands::DB(std::string fileName, std::string numBlocks, directoryFile* directory, Inode* inodeArray, bool* disk) {
 
 }
 
