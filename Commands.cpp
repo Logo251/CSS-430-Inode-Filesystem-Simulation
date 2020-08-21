@@ -10,6 +10,8 @@ Inode Inode::operator=(const Inode& inode)
     for (int i = 0; i < 10; i++) {
         directBlocks[i] = inode.directBlocks[i];
     }
+
+    return *this;
 }
 
 void Commands::FM(directoryFile* directory, Inode *inodeArray, bool *disk)
@@ -45,6 +47,7 @@ void Commands::NF(std::string fileName, std::string blockCount, directoryFile* d
     for (int i = 0; i < 1000 && numBlocksOnDisk <= std::stoi(blockCount); i++) {
         if (disk[i] == 0)
         {
+            newInode.directBlocks[numBlocksOnDisk] = &disk[i];
             disk[i] = 1;
             numBlocksOnDisk++;
         }
@@ -75,10 +78,6 @@ void Commands::MF(std::string fileName, std::string blockCount, directoryFile* d
 }
 
 void Commands::DF(std::string fileName, directoryFile* directory, Inode *inodeArray, bool *disk) {
-    //Local Variables
-    int inodeNumber;
-    int directoryNumber;
-
     //Find the Inode
     for (int i = 0; i < 25; i++) {
         if (directory[i].filename == fileName) {

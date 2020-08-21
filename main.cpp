@@ -43,7 +43,7 @@ int main() {
     std::vector<std::string> givenCommand;
     Inode* inodeArray = new Inode[25];  //Can't have more than 1000 files with a disk the  side of 1000.
     directoryFile* directory = new directoryFile[25]; //The file name and corresponding Inode storage.
-    bool disk[1000] = { false }; //Using bool because we can implement a print approach in Commands::PR.
+    bool* disk = new bool[1000]; //Using bool because we can implement a print approach in Commands::PR.
 
     do {
         givenCommand = parseInput(FILENAME);
