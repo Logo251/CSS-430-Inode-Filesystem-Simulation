@@ -33,10 +33,47 @@ void Commands::NF(std::string fileName, std::string blockCount, directoryFile* d
 }
 
 void Commands::MF(std::string fileName, std::string blockCount, directoryFile* directory, Inode *inodeArray, bool *disk) {
+    //Local Variables
+    int inodeNumber;
+    
+    //Find the Inode
+    for (int i = 0; i < 25; i++) {
+        if (directory[i].filename == fileName) {
+            inodeNumber = directory->inodeNum;
+        }
+    }
+
+    //Set accessed and modified date to be now.
+    inodeArray[inodeNumber].atime = FormattedCurrentTime();
+    inodeArray[inodeNumber].mtime = FormattedCurrentTime();
+    
+    //Add more to inode
+    //TODO: reuse code from NF.
 }
 
 void Commands::DF(std::string fileName, directoryFile* directory, Inode *inodeArray, bool *disk) {
+    //Local Variables
+    int inodeNumber;
+    int directoryNumber;
 
+    //Find the Inode
+    for (int i = 0; i < 25; i++) {
+        if (directory[i].filename == fileName) {
+            inodeNumber = directory->inodeNum;
+            directoryNumber = i;
+        }
+    }
+
+    //Delete data of the inode.
+    for (bool* i : inodeArray[inodeNumber].directBlocks) {
+        if (i != nullptr) { //I think this is needed?
+            *i = false;
+        }
+    }
+
+    //Delete everything now.
+    inodeArray[inodeNumber] = NULL; //TODO: fix this?
+    directory[directoryNumber] = NULL;
 }
 
 void Commands::DB(std::string fileName, std::string numBlocks, directoryFile* directory, Inode *inodeArray, bool *disk) {
