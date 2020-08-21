@@ -113,6 +113,11 @@ void Commands::DF(std::string fileName, directoryFile* directory, Inode* inodeAr
         if (directory[i].filename == fileName) {
             directory[i].inodeNum = 0;
             directory[i].filename = "";
+            for(int j = 0; j <= inodeArray[i].blockCount; j++){
+            //inode direct block points to index on disk, which is set back to 0
+            *inodeArray[i].directBlocks[j] = 0;
+          }
+          //bitmap updated, directory entry updated, but still need to update inode array entry to null
             return;
         }
     }
