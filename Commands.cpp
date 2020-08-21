@@ -7,7 +7,9 @@ Inode Inode::operator=(const Inode& inode)
     mtime = inode.mtime;
     size = inode.size;
     blockCount = inode.blockCount;
-    directBlocks = inode.directBlocks;
+    for (int i = 0; i < 10; i++) {
+        directBlocks[i] = inode.directBlocks[i];
+    }
 }
 
 void Commands::FM(directoryFile* directory, Inode *inodeArray, bool *disk)
