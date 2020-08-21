@@ -73,7 +73,7 @@ int main() {
             Commands::DB(givenCommand[1], givenCommand[2], directory, inodeArray, disk);
         }
         else if(givenCommand[0] == "PR") {
-            std::cout << Commands::PR(directory, inodeArray, disk);
+            Commands::PR(directory, inodeArray, disk);
         }
         else if (givenCommand[0] != "quit") {
             std::cout << "Invalid Command.\n";

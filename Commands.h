@@ -3,6 +3,7 @@
 
 #include <string>
 #include <ctime> //Needed for time for inode.
+#include <iostream>
 
 
 //Directory Structure
@@ -35,7 +36,7 @@ public:
     static void MF(std::string fileName, std::string blockCount, directoryFile* directory, Inode inodeArray[], bool disk[]);
     static void DF(std::string fileName, directoryFile* directory, Inode inodeArray[], bool disk[]);
     static void DB(std::string fileName, std::string numBlocks, directoryFile* directory, Inode inodeArray[], bool disk[]);
-    static std::string PR(directoryFile* directory, Inode inodeArray[], bool disk[]);
+    static void PR(directoryFile* directory, Inode inodeArray[], bool disk[]);
     static std::string FormattedCurrentTime();
 };
 
