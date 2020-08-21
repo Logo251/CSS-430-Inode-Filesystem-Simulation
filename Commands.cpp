@@ -17,6 +17,14 @@ void Commands::FM(directoryFile* directory, Inode *inodeArray, bool *disk)
     delete[] directory;
     delete[] inodeArray;
     delete[] disk;
+
+    directoryFile temp;
+    temp.filename = "";
+    temp.inodeNum = 0;
+
+    directory = new directoryFile[25]{ temp };
+    inodeArray = new Inode[25];
+    disk = new bool[1000]{ false };
 }
 
 void Commands::NF(std::string fileName, std::string blockCount, directoryFile* directory, Inode *inodeArray, bool *disk) {
