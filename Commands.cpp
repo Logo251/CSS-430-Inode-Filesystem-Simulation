@@ -76,7 +76,7 @@ void Commands::MF(std::string fileName, std::string blockCount, directoryFile* d
     //Find the Inode
     for (int i = 0; i < 25; i++) {
         if (directory[i].filename == fileName) {
-            inodeNumber = directory->inodeNum;
+          inodeNumber = directory[i].inodeNum;
         }
     }
 
@@ -87,9 +87,6 @@ void Commands::MF(std::string fileName, std::string blockCount, directoryFile* d
     //Set accessed and modified date to be now.
     inodeArray[inodeNumber].atime = FormattedCurrentTime();
     inodeArray[inodeNumber].mtime = FormattedCurrentTime();
-    //increment block number and size
-    inodeArray[inodeNumber].blockCount += blockNumber;
-    inodeArray[inodeNumber].size += 512000 * blockNumber;
 
     //Add more to inode
     //TODO: reuse code from NF.
@@ -99,12 +96,15 @@ void Commands::MF(std::string fileName, std::string blockCount, directoryFile* d
         if (disk[i] == 0)
         {
             disk[i] = 1;
-            inodeArray[inodeNumber].directBlocks[numBlocksOnDisk] = &disk[i];
+            inodeArray[inodeNumber].directBlocks[numBlocksOnDisk + inodeArray[inodeNumber].blockCount] = &disk[i];
             numBlocksOnDisk++;
         }
         if (numBlocksOnDisk == blockNumber)
             break;
     }
+
+    inodeArray[inodeNumber].blockCount += blockNumber;
+    inodeArray[inodeNumber].size += 512000 * blockNumber;
 }
 
 void Commands::DF(std::string fileName, directoryFile* directory, Inode* inodeArray, bool* disk) {
