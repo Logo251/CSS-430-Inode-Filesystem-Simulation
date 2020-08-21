@@ -35,7 +35,10 @@ void Commands::NF(std::string fileName, std::string blockCount, directoryFile* d
 
     //Set up the new Inode.
     newInode.blockCount = blockNumber;
-    newInode.size = 0; //TODO: set this to something.
+    newInode.size = 512000 * std::stoi(blockCount);
+    newInode.atime = FormattedCurrentTime();
+    newInode.ctime = FormattedCurrentTime();
+    newInode.mtime = FormattedCurrentTime();
 
     int numBlocksOnDisk = 0;
     //Get the Inode some disk.
@@ -79,21 +82,11 @@ void Commands::DF(std::string fileName, directoryFile* directory, Inode *inodeAr
     //Find the Inode
     for (int i = 0; i < 25; i++) {
         if (directory[i].filename == fileName) {
-            inodeNumber = directory->inodeNum;
-            directoryNumber = i;
+            directory[i].inodeNum = 0;
+            directory[i].filename = "";
+            return;
         }
     }
-
-    //Delete data of the inode.
-    for (bool* i : inodeArray[inodeNumber].directBlocks) {
-        if (i != nullptr) { //I think this is needed?
-            *i = false;
-        }
-    }
-
-    //Delete everything now.
-    inodeArray[inodeNumber] = NULL; //TODO: fix this?
-    directory[directoryNumber] = NULL;
 }
 
 void Commands::DB(std::string fileName, std::string numBlocks, directoryFile* directory, Inode *inodeArray, bool *disk) {

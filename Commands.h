@@ -18,9 +18,9 @@ struct Inode {
     const char mode[10] = {'-', 'r', 'w', 'x', 'r', '-', '-', 'r', '-', '-'}; //Default as given by specifications.
     const std::string uid = "CSS430";                                         //Default as given by specifications.
     const std::string guid = "CSS430";                                        //Default as given by specifications.
-    std::string atime = Commands::FormattedCurrentTime();
-    const std::string ctime = Commands::FormattedCurrentTime();
-    std::string mtime = Commands::FormattedCurrentTime();
+    std::string atime;
+    std::string ctime;
+    std::string mtime;
     int size = 0;
     int blockCount = 0;
     bool* directBlocks[10];
