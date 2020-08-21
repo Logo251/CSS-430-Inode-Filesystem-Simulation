@@ -62,7 +62,7 @@ void Commands::NF(std::string fileName, std::string blockCount, directoryFile* d
         {
             inodeArray[i] = newInode;
             directory[i].filename = fileName;
-            directory[i].inodeNum = i;
+            directory[i].inodeNum = i + 1;
             break;
         }
     }
