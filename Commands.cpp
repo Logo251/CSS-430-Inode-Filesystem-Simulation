@@ -110,6 +110,10 @@ std::string Commands::PR(directoryFile* directory, Inode *inodeArray, bool *disk
     for (int i = 0; i < 25; i++) {
         if (!directory[i].filename.empty()) {
             returnString += directory[i].filename + '\t';
+            for (char i : inodeArray[directory[i].inodeNum].mode) {
+                returnString += i;
+            }
+            returnString += '\t';
             returnString += directory[i].inodeNum + '\t';
             returnString += inodeArray[directory[i].inodeNum].uid + '\t';
             returnString += inodeArray[directory[i].inodeNum].guid + '\t';
