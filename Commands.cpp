@@ -1,4 +1,14 @@
 #include "Commands.h"
+#include "Commands.h"
+
+Inode Inode::operator=(const Inode& inode)
+{
+    atime = inode.atime;
+    mtime = inode.mtime;
+    size = inode.size;
+    blockCount = inode.blockCount;
+    directBlocks = inode.directBlocks;
+}
 
 void Commands::FM(directoryFile* directory, Inode *inodeArray, bool *disk)
 {

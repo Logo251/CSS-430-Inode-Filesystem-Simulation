@@ -24,6 +24,8 @@ struct Inode {
     int size = 0;
     int blockCount = 0;
     bool* directBlocks[10];
+
+    Inode operator=(const Inode& inode);
 };
 
 class Commands {
