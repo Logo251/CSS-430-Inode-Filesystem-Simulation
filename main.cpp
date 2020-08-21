@@ -71,7 +71,7 @@ int main() {
         else if (givenCommand[0] != "quit") {
             std::cout << "Invalid Command.\n";
         }
-    } while(consoleInput != "quit");
+    } while(consoleInput != "quit"); //TODO: should this be not-quit because we're reading file?
     return 0;
 }
 
