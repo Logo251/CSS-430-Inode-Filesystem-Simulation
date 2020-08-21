@@ -2,9 +2,4 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/temp.vcxproj.user
-/temp.vcxproj.filters
-/temp.vcxproj
-/temp.sln
-/.vs
-/Debug
+/Temp.vcxproj.user

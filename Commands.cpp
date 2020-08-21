@@ -116,7 +116,7 @@ std::string Commands::PR(directoryFile* directory, Inode *inodeArray, bool *disk
             returnString += inodeArray[directory[i].inodeNum].ctime + "\t";
             returnString += inodeArray[directory[i].inodeNum].atime + "\t";
             returnString += inodeArray[directory[i].inodeNum].mtime + "\t";
-            returnString += inodeArray[directory[i].inodeNum].size + "\t";
+            //returnString += inodeArray[directory[i].inodeNum].size + "\t";
             returnString += inodeArray[directory[i].inodeNum].blockCount + "\t";
             returnString += '\n';
         }
