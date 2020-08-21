@@ -48,17 +48,19 @@ int main() {
     directoryFile* directory = new directoryFile[25]{ empty }; //The file name and corresponding Inode storage.
     bool* disk = new bool[1000]{ false }; //Using bool because we can implement a print approach in Commands::PR.
     int lineCount = 1;
-
-    do {
+    
+    while (true) {
         givenCommand = parseInput(FILENAME, lineCount);
         lineCount++;
 
         //Switch statement doesn't work effectively on strings unless you convert each string
         //to int, so therefore if is being used. :(
+        if (givenCommand.size() == 0)
+            break;
         if (givenCommand[0] == "FM") {
             Commands::FM(directory, inodeArray, disk);
         }
-        if(givenCommand[0] == "NF") {
+        if (givenCommand[0] == "NF") {
             Commands::NF(givenCommand[1], givenCommand[2], directory, inodeArray, disk);
         }
         else if(givenCommand[0] == "MF") {
@@ -76,7 +78,7 @@ int main() {
         else if (givenCommand[0] != "quit") {
             std::cout << "Invalid Command.\n";
         }
-    } while(consoleInput != "quit"); //TODO: should this be not-quit because we're reading file?
+    }
     return 0;
 }
 
@@ -91,7 +93,7 @@ std::vector<std::string> parseInput(std::string filename, int lineCount) {  //Pa
     std::string temporaryStorage;
 
     for (int i = 0; i < lineCount; i++)
-        std::getline(file, line);
+        if (!std::getline(file, line)) return std::vector<std::string>(0);
 
     for (char i : line) {
         if (i != ' ') {
