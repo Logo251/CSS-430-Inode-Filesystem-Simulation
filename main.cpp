@@ -43,9 +43,9 @@ int main() {
 	directoryFile empty;
 	empty.filename = "";
 	empty.inodeNum = 0;
-	Inode* inodeArray = new Inode[25];  //Can't have more than 1000 files with a disk the  side of 1000.
-	directoryFile* directory = new directoryFile[25]{ empty }; //The file name and corresponding Inode storage.
-	bool* disk = new bool[1000]{ false }; //Using bool because we can implement a print approach in Commands::PR.
+	Inode* inodeArray = new Inode[25];
+	directoryFile* directory = new directoryFile[25]{ empty };
+	bool* disk = new bool[1000]{ false };
 	int lineCount = 1;
 
 	while (true) {
