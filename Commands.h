@@ -6,7 +6,6 @@
 #include <iostream>
 #include <iomanip>
 
-
 //Directory Structure
 struct directoryFile {
     std::string filename = "";
@@ -31,7 +30,6 @@ struct Inode {
 };
 
 class Commands {
-    static std::string padZeros(std::string val);
     static std::string FormattedCurrentTime();
 public:
     static void FM(directoryFile* directory, Inode inodeArray[], bool disk[]);

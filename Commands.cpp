@@ -195,17 +195,20 @@ std::string Commands::FormattedCurrentTime() {
     std::string returnString;
     struct tm timeInfo;
     time_t t = time(NULL);
-    localtime_s(&timeInfo, &t);
-    returnString = padZeros(std::to_string(timeInfo.tm_mday)) + "/"
-        + padZeros(std::to_string(1 + timeInfo.tm_mon)) + "/"
-        + std::to_string((1900 + timeInfo.tm_year)) + " "
-        + padZeros(std::to_string((timeInfo.tm_hour))) + ":" + padZeros(std::to_string(timeInfo.tm_min)) + ":" + padZeros(std::to_string(timeInfo.tm_sec));
-    return returnString;
-}
 
-std::string Commands::padZeros(std::string val)
-{
-    if (std::stoi(val) < 10)
-        return "0" + val;
-    return val;
+#ifndef __unix__
+    localtime_r(&t, &timeInfo);
+#else
+    localtime_s(&timeInfo, &t);
+#endif
+
+    std::string day = (timeInfo.tm_mday < 10) ? "0" + std::to_string(timeInfo.tm_mday) : std::to_string(timeInfo.tm_mday);
+    std::string mon = (timeInfo.tm_mon + 1 < 10) ? "0" + std::to_string(timeInfo.tm_mon) : std::to_string(timeInfo.tm_mon);
+    std::string yr = std::to_string(timeInfo.tm_year + 1900);
+    std::string hr = (timeInfo.tm_hour < 10) ? "0" + std::to_string(timeInfo.tm_hour) : std::to_string(timeInfo.tm_hour);
+    std::string min = (timeInfo.tm_min < 10) ? "0" + std::to_string(timeInfo.tm_min) : std::to_string(timeInfo.tm_min);
+    std::string sec = (timeInfo.tm_sec < 10) ? "0" + std::to_string(timeInfo.tm_sec) : std::to_string(timeInfo.tm_sec);
+
+    returnString = day + "/" + mon + "/" + yr + " " + hr + ":" + min + ":" + sec;
+    return returnString;
 }
