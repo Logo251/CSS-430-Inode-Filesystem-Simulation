@@ -115,22 +115,31 @@ void Commands::DF(std::string fileName, directoryFile* directory, Inode* inodeAr
 }
 
 void Commands::DB(std::string fileName, std::string numBlocks, directoryFile* directory, Inode* inodeArray, bool* disk) {
-  int blockNumber = std::stoi(numBlocks);
-  for (int i = 0; i < 25; i++) {
-    if (directory[i].filename == fileName) {
-      for(int j = blockNumber - 1; j >= inodeArray[i].blockCount - blockNumber; j--){
-        //inode direct block points to index on disk, which is set back to 0
-        *inodeArray[i].directBlocks[j] = 0;
-        //decrement block count and size
-        inodeArray[i].blockCount--;
-        inodeArray[i].size -= 512000;
-      }
-      //update other inode fields
-      inodeArray[i].atime = FormattedCurrentTime();
-      inodeArray[i].mtime = FormattedCurrentTime();
-      return;
+    //Local Variables
+    int index;
+
+    //Find the Inode
+    for (int i = 0; i < 25; i++) {
+        if (directory[i].filename == fileName) {
+            index = i;
+        }
     }
-  }
+
+    if (inodeArray[index].blockCount - std::stoi(numBlocks) < 1)
+        std::cout << "You can't delete that many blocks from " << fileName << std::endl;
+
+    //Set accessed and modified date to be now.
+    inodeArray[index].atime = FormattedCurrentTime();
+    inodeArray[index].mtime = FormattedCurrentTime();
+
+    //Get the Inode some disk.
+    for (int i = inodeArray[index].blockCount - 1; i >= inodeArray[index].blockCount - std::stoi(numBlocks); i--) {
+        *inodeArray[index].directBlocks[i] = 0;
+        inodeArray[index].directBlocks[i] = nullptr;
+    }
+
+    inodeArray[index].blockCount -= std::stoi(numBlocks);
+    inodeArray[index].size = inodeArray[index].blockCount * 524288;
 }
 
 void Commands::PR(directoryFile* directory, Inode *inodeArray, bool *disk) {
