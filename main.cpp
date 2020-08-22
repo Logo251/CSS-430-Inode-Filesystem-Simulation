@@ -23,7 +23,6 @@
 #include <iostream> //Needed for cin/cout/getline.
 #include <vector> //Needed for vector for function return.
 #include <fstream> //Needed to read from file.
-#include <Windows.h>
 #include "Commands.h" //Commands the OS uses.
 
 const std::string FILENAME = "command.txt";
@@ -74,12 +73,15 @@ int main() {
         }
         else if(givenCommand[0] == "PR") {
             Commands::PR(directory, inodeArray, disk);
-            Sleep(3000);
         }
         else {
             std::cout << "Invalid Command.\n";
         }
     }
+
+    delete[] directory;
+    delete[] inodeArray;
+    delete[] disk;
     return 0;
 }
 
