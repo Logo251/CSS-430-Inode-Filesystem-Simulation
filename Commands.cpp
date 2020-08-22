@@ -137,7 +137,7 @@ void Commands::DB(std::string fileName, std::string numBlocks, directoryFile* di
 
 void Commands::PR(directoryFile* directory, Inode *inodeArray, bool *disk) {
     //Local Variables
-    std::cout << std::setw(15) << "filename";
+    std::cout << std::endl << std::setw(15) << "filename";
     std::cout << std::setw(12) << "mode";
     std::cout << std::setw(10) << "inode #";
     std::cout << std::setw(8) << "uid";
@@ -151,17 +151,17 @@ void Commands::PR(directoryFile* directory, Inode *inodeArray, bool *disk) {
         if (!directory[i].filename.empty()) {
             std::cout << std::setw(15) << directory[i].filename;
             std::cout << "  ";
-            for (char i : inodeArray[directory[i].inodeNum].mode) {
+            for (char i : inodeArray[directory[i].inodeNum - 1].mode) {
                 std::cout << i;
             }
             std::cout << std::setw(10) << directory[i].inodeNum;
-            std::cout << std::setw(8) << inodeArray[directory[i].inodeNum].uid;
-            std::cout << std::setw(8) << inodeArray[directory[i].inodeNum].guid;
-            std::cout << std::setw(16) << inodeArray[directory[i].inodeNum].ctime;
-            std::cout << std::setw(16) << inodeArray[directory[i].inodeNum].atime;
-            std::cout << std::setw(16) << inodeArray[directory[i].inodeNum].mtime;
-            std::cout << std::setw(10) << inodeArray[directory[i].inodeNum].size ;
-            std::cout << std::setw(13) << inodeArray[directory[i].inodeNum].blockCount << std::endl;
+            std::cout << std::setw(8) << inodeArray[directory[i].inodeNum - 1].uid;
+            std::cout << std::setw(8) << inodeArray[directory[i].inodeNum - 1].guid;
+            std::cout << std::setw(16) << inodeArray[directory[i].inodeNum - 1].ctime;
+            std::cout << std::setw(16) << inodeArray[directory[i].inodeNum - 1].atime;
+            std::cout << std::setw(16) << inodeArray[directory[i].inodeNum - 1].mtime;
+            std::cout << std::setw(10) << inodeArray[directory[i].inodeNum - 1].size ;
+            std::cout << std::setw(13) << inodeArray[directory[i].inodeNum - 1].blockCount << std::endl;
         }
     }
     std::cout << "bitmap array:\n";
