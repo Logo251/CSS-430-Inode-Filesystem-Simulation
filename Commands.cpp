@@ -64,40 +64,38 @@ void Commands::NF(std::string fileName, std::string blockCount, directoryFile* d
 
 void Commands::MF(std::string fileName, std::string blockCount, directoryFile* directory, Inode* inodeArray, bool* disk) {
     //Local Variables
-    int inodeNumber;
+    int index;
 
     //Find the Inode
     for (int i = 0; i < 25; i++) {
         if (directory[i].filename == fileName) {
-          inodeNumber = directory[i].inodeNum;
+            index = i;
         }
     }
 
-    int blockNumber = std::stoi(blockCount);
-    int blocksLeft = 10 - inodeArray[inodeNumber].blockCount;
-    if (blockNumber > blocksLeft) blockNumber = blocksLeft;
+    if (inodeArray[index].blockCount + std::stoi(blockCount) > 10)
+        std::cout << "You can't add that many blocks to " << fileName << std::endl;
 
     //Set accessed and modified date to be now.
-    inodeArray[inodeNumber].atime = FormattedCurrentTime();
-    inodeArray[inodeNumber].mtime = FormattedCurrentTime();
+    inodeArray[index].atime = FormattedCurrentTime();
+    inodeArray[index].mtime = FormattedCurrentTime();
 
     //Add more to inode
-    //TODO: reuse code from NF.
     int numBlocksOnDisk = 0;
     //Get the Inode some disk.
     for (int i = 0; i < 1000; i++) {
         if (disk[i] == 0)
         {
             disk[i] = 1;
-            inodeArray[inodeNumber].directBlocks[numBlocksOnDisk + inodeArray[inodeNumber].blockCount] = &disk[i];
+            inodeArray[index].directBlocks[numBlocksOnDisk + inodeArray[index].blockCount] = &disk[i];
             numBlocksOnDisk++;
         }
-        if (numBlocksOnDisk == blockNumber)
+        if (numBlocksOnDisk == std::stoi(blockCount))
             break;
     }
 
-    inodeArray[inodeNumber].blockCount += blockNumber;
-    inodeArray[inodeNumber].size += 512000 * blockNumber;
+    inodeArray[index].blockCount += std::stoi(blockCount);
+    inodeArray[index].size = inodeArray[index].blockCount * 524288;
 }
 
 void Commands::DF(std::string fileName, directoryFile* directory, Inode* inodeArray, bool* disk) {
@@ -151,17 +149,17 @@ void Commands::PR(directoryFile* directory, Inode *inodeArray, bool *disk) {
         if (!directory[i].filename.empty()) {
             std::cout << std::setw(15) << directory[i].filename;
             std::cout << "  ";
-            for (char i : inodeArray[directory[i].inodeNum - 1].mode) {
+            for (char i : inodeArray[i].mode) {
                 std::cout << i;
             }
             std::cout << std::setw(10) << directory[i].inodeNum;
-            std::cout << std::setw(8) << inodeArray[directory[i].inodeNum - 1].uid;
-            std::cout << std::setw(8) << inodeArray[directory[i].inodeNum - 1].guid;
-            std::cout << std::setw(16) << inodeArray[directory[i].inodeNum - 1].ctime;
-            std::cout << std::setw(16) << inodeArray[directory[i].inodeNum - 1].atime;
-            std::cout << std::setw(16) << inodeArray[directory[i].inodeNum - 1].mtime;
-            std::cout << std::setw(10) << inodeArray[directory[i].inodeNum - 1].size ;
-            std::cout << std::setw(13) << inodeArray[directory[i].inodeNum - 1].blockCount << std::endl;
+            std::cout << std::setw(8) << inodeArray[i].uid;
+            std::cout << std::setw(8) << inodeArray[i].guid;
+            std::cout << std::setw(16) << inodeArray[i].ctime;
+            std::cout << std::setw(16) << inodeArray[i].atime;
+            std::cout << std::setw(16) << inodeArray[i].mtime;
+            std::cout << std::setw(10) << inodeArray[i].size ;
+            std::cout << std::setw(13) << inodeArray[i].blockCount << std::endl;
         }
     }
     std::cout << "bitmap array:\n";
