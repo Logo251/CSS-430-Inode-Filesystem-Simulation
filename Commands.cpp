@@ -187,7 +187,8 @@ void Commands::PR(directoryFile* directory, Inode *inodeArray, bool *disk) {
             std::cout << '0';
         }
     }
-            std::cout << std::endl;
+    std::cout << std::endl << "-------------------------------------------------------------------------------------------------------------------------------------";
+    std::cout << std::endl;
     return;
 }
 
