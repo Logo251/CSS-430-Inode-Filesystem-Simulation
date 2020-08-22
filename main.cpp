@@ -36,8 +36,7 @@ int main() {
     std::cout << "Written by:\n";
     std::cout << "Logan Petersen\n";
     std::cout << "Jayden Fullerton\n";
-    //TODO: ADD YOUR NAME HERE.
-    //cout << "NAME"\n;
+    std::cout << "Makoto Booth\n";
 
     //Local Variables
     std::string consoleInput;
