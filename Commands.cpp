@@ -196,10 +196,10 @@ std::string Commands::FormattedCurrentTime() {
     struct tm timeInfo;
     time_t t = time(NULL);
 
-#ifndef __unix__
-    localtime_r(&t, &timeInfo);
-#else
+#ifdef _WIN32
     localtime_s(&timeInfo, &t);
+#else
+    localtime_r(&t, &timeInfo); 
 #endif
 
     std::string day = (timeInfo.tm_mday < 10) ? "0" + std::to_string(timeInfo.tm_mday) : std::to_string(timeInfo.tm_mday);
