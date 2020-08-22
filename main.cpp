@@ -60,7 +60,7 @@ int main() {
         if (givenCommand[0] == "FM") {
             Commands::FM(directory, inodeArray, disk);
         }
-        if (givenCommand[0] == "NF") {
+        else if (givenCommand[0] == "NF") {
             Commands::NF(givenCommand[1], givenCommand[2], directory, inodeArray, disk);
         }
         else if(givenCommand[0] == "MF") {
@@ -75,7 +75,7 @@ int main() {
         else if(givenCommand[0] == "PR") {
             Commands::PR(directory, inodeArray, disk);
         }
-        else if (givenCommand[0] != "quit") {
+        else {
             std::cout << "Invalid Command.\n";
         }
     }

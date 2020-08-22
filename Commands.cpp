@@ -16,17 +16,11 @@ Inode Inode::operator=(const Inode& inode)
 
 void Commands::FM(directoryFile* directory, Inode* inodeArray, bool* disk)
 {
-    delete[] directory;
-    delete[] inodeArray;
-    delete[] disk;
-
-    directoryFile temp;
-    temp.filename = "";
-    temp.inodeNum = 0;
-
-    directory = new directoryFile[25]{ temp };
-    inodeArray = new Inode[25];
-    disk = new bool[1000]{ false };
+    for (int i = 0; i < 25; i++)
+    {
+        directory[i].filename = "";
+        directory[i].inodeNum = 0;
+    }
 }
 
 void Commands::NF(std::string fileName, std::string blockCount, directoryFile* directory, Inode* inodeArray, bool* disk) {
