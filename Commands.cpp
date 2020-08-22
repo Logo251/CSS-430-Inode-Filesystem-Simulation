@@ -148,34 +148,34 @@ void Commands::DB(std::string fileName, std::string numBlocks, directoryFile* di
 
 void Commands::PR(directoryFile* directory, Inode *inodeArray, bool *disk) {
     //Local Variables
-    std::cout << std::endl << std::setw(15) << "filename";
-    std::cout << std::setw(12) << "mode";
-    std::cout << std::setw(10) << "inode #";
-    std::cout << std::setw(8) << "uid";
-    std::cout << std::setw(8) << "guid";
-    std::cout << std::setw(20) << "ctime";
-    std::cout << std::setw(20) << "atime";
-    std::cout << std::setw(20) << "mtime";
-    std::cout << std::setw(10) << "size";
-    std::cout << std::setw(13) << "block count" << std::endl;
+    std::cout << std::endl << "filename";
+    std::cout << std::setw(9) << "mode";
+    std::cout << std::setw(15) << "inode #";
+    std::cout << std::setw(5) << "uid";
+    std::cout << std::setw(9) << "guid";
+    std::cout << std::setw(9) << "ctime";
+    std::cout << std::setw(21) << "atime";
+    std::cout << std::setw(21) << "mtime";
+    std::cout << std::setw(20) << "size";
+    std::cout << std::setw(16) << "block count" << std::endl;
     for (int i = 0; i < 25; i++) {
         if (!directory[i].filename.empty()) {
-            std::cout << std::setw(15) << directory[i].filename;
+            std::cout << directory[i].filename;
             std::cout << "  ";
             for (char i : inodeArray[i].mode) {
                 std::cout << i;
             }
-            std::cout << std::setw(10) << directory[i].inodeNum;
+            std::cout << std::setw(9) << directory[i].inodeNum;
             std::cout << std::setw(8) << inodeArray[i].uid;
             std::cout << std::setw(8) << inodeArray[i].guid;
-            std::cout << std::setw(20) << inodeArray[i].ctime;
-            std::cout << std::setw(20) << inodeArray[i].atime;
-            std::cout << std::setw(20) << inodeArray[i].mtime;
-            std::cout << std::setw(10) << inodeArray[i].size ;
+            std::cout << std::setw(21) << inodeArray[i].ctime;
+            std::cout << std::setw(21) << inodeArray[i].atime;
+            std::cout << std::setw(21) << inodeArray[i].mtime;
+            std::cout << std::setw(9) << inodeArray[i].size ;
             std::cout << std::setw(13) << inodeArray[i].blockCount << std::endl;
         }
     }
-    std::cout << "bitmap array:\n";
+    std::cout << "\nbitmap array:";
     for (int i = 0; i < 1000; i++) {
         if (i % 100 == 0) {
             std::cout << '\n';
@@ -187,6 +187,7 @@ void Commands::PR(directoryFile* directory, Inode *inodeArray, bool *disk) {
             std::cout << '0';
         }
     }
+            std::cout << std::endl;
     return;
 }
 
