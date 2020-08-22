@@ -21,6 +21,10 @@ void Commands::FM(directoryFile* directory, Inode* inodeArray, bool* disk)
         directory[i].filename = "";
         directory[i].inodeNum = 0;
     }
+    for (int i = 0; i < 1000; i++)
+    {
+      disk[i] = 0;
+    }
 }
 
 void Commands::NF(std::string fileName, std::string blockCount, directoryFile* directory, Inode* inodeArray, bool* disk) {
