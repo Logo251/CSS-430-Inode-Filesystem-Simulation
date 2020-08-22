@@ -149,9 +149,9 @@ void Commands::PR(directoryFile* directory, Inode *inodeArray, bool *disk) {
     std::cout << std::setw(10) << "inode #";
     std::cout << std::setw(8) << "uid";
     std::cout << std::setw(8) << "guid";
-    std::cout << std::setw(16) << "ctime";
-    std::cout << std::setw(16) << "atime";
-    std::cout << std::setw(16) << "mtime";
+    std::cout << std::setw(20) << "ctime";
+    std::cout << std::setw(20) << "atime";
+    std::cout << std::setw(20) << "mtime";
     std::cout << std::setw(10) << "size";
     std::cout << std::setw(13) << "block count" << std::endl;
     for (int i = 0; i < 25; i++) {
@@ -164,9 +164,9 @@ void Commands::PR(directoryFile* directory, Inode *inodeArray, bool *disk) {
             std::cout << std::setw(10) << directory[i].inodeNum;
             std::cout << std::setw(8) << inodeArray[i].uid;
             std::cout << std::setw(8) << inodeArray[i].guid;
-            std::cout << std::setw(16) << inodeArray[i].ctime;
-            std::cout << std::setw(16) << inodeArray[i].atime;
-            std::cout << std::setw(16) << inodeArray[i].mtime;
+            std::cout << std::setw(20) << inodeArray[i].ctime;
+            std::cout << std::setw(20) << inodeArray[i].atime;
+            std::cout << std::setw(20) << inodeArray[i].mtime;
             std::cout << std::setw(10) << inodeArray[i].size ;
             std::cout << std::setw(13) << inodeArray[i].blockCount << std::endl;
         }
@@ -191,9 +191,16 @@ std::string Commands::FormattedCurrentTime() {
     struct tm timeInfo;
     time_t t = time(NULL);
     localtime_s(&timeInfo, &t);
-    returnString = std::to_string(timeInfo.tm_mday) + "/"
-        + std::to_string(1 + timeInfo.tm_mon) + "/"
+    returnString = padZeros(std::to_string(timeInfo.tm_mday)) + "/"
+        + padZeros(std::to_string(1 + timeInfo.tm_mon)) + "/"
         + std::to_string((1900 + timeInfo.tm_year)) + " "
-        + std::to_string((1 + timeInfo.tm_hour)) + ":" + std::to_string(timeInfo.tm_sec);
+        + padZeros(std::to_string((timeInfo.tm_hour))) + ":" + padZeros(std::to_string(timeInfo.tm_min)) + ":" + padZeros(std::to_string(timeInfo.tm_sec));
     return returnString;
+}
+
+std::string Commands::padZeros(std::string val)
+{
+    if (std::stoi(val) < 10)
+        return "0" + val;
+    return val;
 }

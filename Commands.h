@@ -31,6 +31,8 @@ struct Inode {
 };
 
 class Commands {
+    static std::string FormattedCurrentTime();
+    static std::string padZeros(std::string val);
 public:
     static void FM(directoryFile* directory, Inode inodeArray[], bool disk[]);
     static void NF(std::string fileName, std::string blockCount, directoryFile* directory, Inode inodeArray[], bool disk[]);
@@ -38,7 +40,6 @@ public:
     static void DF(std::string fileName, directoryFile* directory, Inode inodeArray[], bool disk[]);
     static void DB(std::string fileName, std::string numBlocks, directoryFile* directory, Inode inodeArray[], bool disk[]);
     static void PR(directoryFile* directory, Inode inodeArray[], bool disk[]);
-    static std::string FormattedCurrentTime();
 };
 
 
